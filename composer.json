@@ -1,0 +1,26 @@
+{
+  "name": "citrus-framework/console",
+  "description": "php console command library",
+  "keywords": ["citrus", "php", "library", "console", "command"],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "take64",
+      "email": "take64@citrus.tk"
+    }
+  ],
+  "require": {
+  },
+  "require-dev": {
+    "php": "^7.3",
+    "phpunit/phpunit": "^8.4",
+    "nunomaduro/phpinsights": "^v1.13"
+  },
+  "autoload": {
+    "psr-4": {
+      "Citrus\\": "src/",
+      "Test\\": "tests/"
+    }
+  }
+}
