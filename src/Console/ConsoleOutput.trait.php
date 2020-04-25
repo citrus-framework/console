@@ -13,7 +13,7 @@ namespace Citrus\Console;
 /**
  * コンソール出力系処理
  */
-trait Output
+trait ConsoleOutput
 {
     /**
      * メッセージ出力
