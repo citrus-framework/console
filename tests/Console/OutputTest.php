@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Test\Console;
 
-use Citrus\Console\Output;
+use Citrus\Console\ConsoleOutput;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -38,5 +38,5 @@ class ConsoleTest extends TestCase
  */
 class TestConsole
 {
-    use Output;
+    use ConsoleOutput;
 }
