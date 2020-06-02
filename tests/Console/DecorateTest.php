@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @license     http://www.citrus.tk/
  */
 
-namespace Test\Console\Console;
+namespace Test\Console;
 
 use Citrus\Console\Decorate;
 use PHPUnit\Framework\TestCase;
