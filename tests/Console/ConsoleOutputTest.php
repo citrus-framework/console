@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * コマンドコンソールのテスト
  */
-class ConsoleTest extends TestCase
+class ConsoleOutputTest extends TestCase
 {
     /**
      * @test
