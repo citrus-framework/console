@@ -73,7 +73,7 @@ class Decorate
     public const RESET = "\033[m";
 
     /** @var int[] 装飾のスタック */
-    protected $stack = [];
+    protected array $stacks = [];
 
 
 
@@ -83,7 +83,7 @@ class Decorate
      * @param int|int[] $decorates
      * @return void
      */
-    public function addStack($decorates): void
+    public function addStack(array|int $decorates): void
     {
         // 配列の場合は再起
         if (true === is_array($decorates))
@@ -94,7 +94,7 @@ class Decorate
             }
         }
 
-        $this->stack[] = $decorates;
+        $this->stacks[] = $decorates;
     }
 
 
@@ -107,9 +107,10 @@ class Decorate
      */
     public function format(string $message): string
     {
-        $decorate_code = implode(';', $this->stack);
+        $decorate_code = implode(';', $this->stacks);
 
-        return sprintf("\033[%sm%s%s",
+        return sprintf(
+            "\033[%sm%s%s",
             $decorate_code,
             $message,
             self::RESET

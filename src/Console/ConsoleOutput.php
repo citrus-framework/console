@@ -22,7 +22,7 @@ trait ConsoleOutput
      * @param bool            $newline  改行
      * @return void
      */
-    public function write($messages, bool $newline): void
+    public function write(array|string $messages, bool $newline): void
     {
         // 配列なら再起
         if (true === is_array($messages))
@@ -51,7 +51,7 @@ trait ConsoleOutput
      * @param string|string[] $messages メッセージ
      * @return void
      */
-    public function writeln($messages): void
+    public function writeln(array|string $messages): void
     {
         $this->write($messages, true);
     }

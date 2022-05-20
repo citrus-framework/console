@@ -16,16 +16,16 @@ namespace Citrus;
 class Console
 {
     /** @var string script code */
-    public $script = '';
+    protected string $script = '';
 
     /** @var array configure */
-    public $configures = [];
+    protected array $configures = [];
 
     /** @var array command options */
-    protected $options = [];
+    protected array $options = [];
 
     /** @var array command parameters */
-    protected $parameters = [];
+    protected array $parameters = [];
 
 
 
