@@ -10,11 +10,15 @@ declare(strict_types=1);
 
 namespace Citrus\Console;
 
+use Citrus\Variable\Instance;
+
 /**
  * コンソール出力文字列の装飾
  */
 class Decorate
 {
+    use Instance;
+
     /** @var int 文字色デフォルトカラー接頭辞 */
     public const FOREGROUND_DEFAULT_PREFIX = 3;
 
@@ -122,11 +126,12 @@ class Decorate
     /**
      * 太字にする
      *
-     * @return void
+     * @return static
      */
-    public function onBold(): void
+    public function onBold(): self
     {
         $this->addStack(self::BOLD);
+        return $this;
     }
 
 
@@ -134,11 +139,12 @@ class Decorate
     /**
      * 下線をつける
      *
-     * @return void
+     * @return static
      */
-    public function onUnderline(): void
+    public function onUnderline(): self
     {
         $this->addStack(self::UNDERLINE);
+        return $this;
     }
 
 
@@ -147,11 +153,12 @@ class Decorate
      * 文字色をつける
      *
      * @param int $color 色
-     * @return void
+     * @return static
      */
-    public function onTextColor(int $color): void
+    public function onTextColor(int $color): self
     {
         $this->addStack((self::FOREGROUND_DEFAULT_PREFIX * 10) + $color);
+        return $this;
     }
 
 
@@ -160,11 +167,12 @@ class Decorate
      * 文字色をつける(淡)
      *
      * @param int $color 色
-     * @return void
+     * @return static
      */
-    public function onTextLightColor(int $color): void
+    public function onTextLightColor(int $color): self
     {
         $this->addStack((self::FOREGROUND_LIGHT_PREFIX * 10) + $color);
+        return $this;
     }
 
 
@@ -173,11 +181,12 @@ class Decorate
      * 背景色をつける
      *
      * @param int $color 色
-     * @return void
+     * @return static
      */
-    public function onBackColor(int $color): void
+    public function onBackColor(int $color): self
     {
         $this->addStack((self::BACKGROUND_DEFAULT_PREFIX * 10) + $color);
+        return $this;
     }
 
 
@@ -186,10 +195,11 @@ class Decorate
      * 背景色をつける(淡)
      *
      * @param int $color 色
-     * @return void
+     * @return static
      */
-    public function onBackLightColor(int $color): void
+    public function onBackLightColor(int $color): self
     {
         $this->addStack((self::BACKGROUND_LIGHT_PREFIX * 10) + $color);
+        return $this;
     }
 }

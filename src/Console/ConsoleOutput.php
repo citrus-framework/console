@@ -80,13 +80,14 @@ trait ConsoleOutput
      */
     public function success(string $message): void
     {
-        // 装飾
-        $decorate = new Decorate();
-        $decorate->onTextLightColor(Decorate::GREEN);
-        $decorate->onBold();
-        $decorated_message = $decorate->format($message);
         // 出力
-        $this->writeln($decorated_message);
+        $this->writeln(
+            // 装飾してフォーマット
+            Decorate::getInstance()
+                ->onTextLightColor(Decorate::GREEN)
+                ->onBold()
+                ->format($message)
+        );
     }
 
 
@@ -99,13 +100,14 @@ trait ConsoleOutput
      */
     public function failure(string $message): void
     {
-        // 装飾
-        $decorate = new Decorate();
-        $decorate->onTextLightColor(Decorate::WHITE);
-        $decorate->onBackColor(Decorate::RED);
-        $decorate->onBold();
-        $decorated_message = $decorate->format($message);
         // 出力
-        $this->writeln($decorated_message);
+        $this->writeln(
+            // 装飾してフォーマット
+            Decorate::getInstance()
+                ->onTextLightColor(Decorate::WHITE)
+                ->onBackColor(Decorate::RED)
+                ->onBold()
+                ->format($message)
+        );
     }
 }
