@@ -22,7 +22,7 @@ class Decorate
 {
     use Instance;
 
-    /** @var string 初期化 */
+    /** 初期化 */
     public const RESET = "\033[m";
 
     /** @var int[] 装飾のスタック */
@@ -34,7 +34,6 @@ class Decorate
      * 装飾を積む
      *
      * @param int|int[] $decorates
-     * @return void
      */
     public function addStack(array|int $decorates): void
     {
@@ -49,8 +48,6 @@ class Decorate
 
         $this->stacks[] = $decorates;
     }
-
-
 
     /**
      * 装飾済み文字列の返却
@@ -70,8 +67,6 @@ class Decorate
         );
     }
 
-
-
     /**
      * 太字にする
      *
@@ -83,8 +78,6 @@ class Decorate
         return $this;
     }
 
-
-
     /**
      * 下線をつける
      *
@@ -95,8 +88,6 @@ class Decorate
         $this->addStack(StyleType::UNDERLINE->value);
         return $this;
     }
-
-
 
     /**
      * 文字色をつける
@@ -110,8 +101,6 @@ class Decorate
         return $this;
     }
 
-
-
     /**
      * 文字色をつける(淡)
      *
@@ -124,8 +113,6 @@ class Decorate
         return $this;
     }
 
-
-
     /**
      * 背景色をつける
      *
@@ -137,8 +124,6 @@ class Decorate
         $this->addStack((GroundType::BACKGROUND_DEFAULT_PREFIX->value * 10) + $colorType->value);
         return $this;
     }
-
-
 
     /**
      * 背景色をつける(淡)

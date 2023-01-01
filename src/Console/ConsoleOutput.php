@@ -22,7 +22,6 @@ trait ConsoleOutput
      *
      * @param string|string[] $messages 出力メッセージ
      * @param bool            $newline  改行
-     * @return void
      */
     public function write(array|string $messages, bool $newline): void
     {
@@ -45,40 +44,31 @@ trait ConsoleOutput
         echo $messages . (true === $newline ? PHP_EOL : '');
     }
 
-
-
     /**
      * メッセージ出力(改行)
      *
      * @param string|string[] $messages メッセージ
-     * @return void
      */
     public function writeln(array|string $messages): void
     {
         $this->write($messages, true);
     }
 
-
-
     /**
      * メッセージフォーマット(改行)
      *
-     * @param string $format フォーマット文字列
-     * @param mixed  $args   可変引数
-     * @return void
+     * @param string                $format フォーマット文字列
+     * @param string|int|float|bool $args   可変引数
      */
     public function format(string $format, ...$args): void
     {
         $this->writeln(vsprintf($format, $args));
     }
 
-
-
     /**
      * 成功時出力
      *
      * @param string $message メッセージ
-     * @return void
      */
     public function success(string $message): void
     {
@@ -92,13 +82,10 @@ trait ConsoleOutput
         );
     }
 
-
-
     /**
      * 失敗時出力
      *
      * @param string $message メッセージ
-     * @return void
      */
     public function failure(string $message): void
     {
