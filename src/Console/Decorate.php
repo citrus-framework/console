@@ -10,6 +10,9 @@ declare(strict_types=1);
 
 namespace Citrus\Console;
 
+use Citrus\Console\Decorate\ColorType;
+use Citrus\Console\Decorate\GroundType;
+use Citrus\Console\Decorate\StyleType;
 use Citrus\Variable\Instance;
 
 /**
@@ -18,60 +21,6 @@ use Citrus\Variable\Instance;
 class Decorate
 {
     use Instance;
-
-    /** @var int 文字色デフォルトカラー接頭辞 */
-    public const FOREGROUND_DEFAULT_PREFIX = 3;
-
-    /** @var int 文字色ライトカラー接頭辞 */
-    public const FOREGROUND_LIGHT_PREFIX = 9;
-
-    /** @var int 背景色デフォルトカラー接頭辞 */
-    public const BACKGROUND_DEFAULT_PREFIX = 4;
-
-    /** @var int 背景色ライトカラー接頭辞 */
-    public const BACKGROUND_LIGHT_PREFIX = 10;
-
-    /** @var int 黒 */
-    public const BLACK = 0;
-
-    /** @var int 赤 */
-    public const RED = 1;
-
-    /** @var int 緑 */
-    public const GREEN = 2;
-
-    /** @var int 黄色 */
-    public const YELLOW = 3;
-
-    /** @var int 青 */
-    public const BLUE = 4;
-
-    /** @var int マジェンタ */
-    public const MAGENTA = 5;
-
-    /** @var int シアン */
-    public const CYAN = 6;
-
-    /** @var int 白 */
-    public const WHITE = 7;
-
-    /** @var int 太字 */
-    public const BOLD = 1;
-
-    /** @var int 仄暗くする */
-    public const DIM = 2;
-
-    /** @var int 下線 */
-    public const UNDERLINE = 4;
-
-    /** @var int 点滅 */
-    public const BLINK = 5;
-
-    /** @var int 反転 */
-    public const REVERSE = 7;
-
-    /** @var int 隠す */
-    public const HIDDEN = 8;
 
     /** @var string 初期化 */
     public const RESET = "\033[m";
@@ -130,7 +79,7 @@ class Decorate
      */
     public function onBold(): self
     {
-        $this->addStack(self::BOLD);
+        $this->addStack(StyleType::BOLD->value);
         return $this;
     }
 
@@ -143,7 +92,7 @@ class Decorate
      */
     public function onUnderline(): self
     {
-        $this->addStack(self::UNDERLINE);
+        $this->addStack(StyleType::UNDERLINE->value);
         return $this;
     }
 
@@ -152,12 +101,12 @@ class Decorate
     /**
      * 文字色をつける
      *
-     * @param int $color 色
+     * @param ColorType $colorType 色
      * @return static
      */
-    public function onTextColor(int $color): self
+    public function onTextColor(ColorType $colorType): self
     {
-        $this->addStack((self::FOREGROUND_DEFAULT_PREFIX * 10) + $color);
+        $this->addStack((GroundType::FOREGROUND_DEFAULT_PREFIX->value * 10) + $colorType->value);
         return $this;
     }
 
@@ -166,12 +115,12 @@ class Decorate
     /**
      * 文字色をつける(淡)
      *
-     * @param int $color 色
+     * @param ColorType $colorType 色
      * @return static
      */
-    public function onTextLightColor(int $color): self
+    public function onTextLightColor(ColorType $colorType): self
     {
-        $this->addStack((self::FOREGROUND_LIGHT_PREFIX * 10) + $color);
+        $this->addStack((GroundType::FOREGROUND_LIGHT_PREFIX->value * 10) + $colorType->value);
         return $this;
     }
 
@@ -180,12 +129,12 @@ class Decorate
     /**
      * 背景色をつける
      *
-     * @param int $color 色
+     * @param ColorType $colorType 色
      * @return static
      */
-    public function onBackColor(int $color): self
+    public function onBackColor(ColorType $colorType): self
     {
-        $this->addStack((self::BACKGROUND_DEFAULT_PREFIX * 10) + $color);
+        $this->addStack((GroundType::BACKGROUND_DEFAULT_PREFIX->value * 10) + $colorType->value);
         return $this;
     }
 
@@ -194,12 +143,12 @@ class Decorate
     /**
      * 背景色をつける(淡)
      *
-     * @param int $color 色
+     * @param ColorType $colorType 色
      * @return static
      */
-    public function onBackLightColor(int $color): self
+    public function onBackLightColor(ColorType $colorType): self
     {
-        $this->addStack((self::BACKGROUND_LIGHT_PREFIX * 10) + $color);
+        $this->addStack((GroundType::BACKGROUND_LIGHT_PREFIX->value * 10) + $colorType->value);
         return $this;
     }
 }

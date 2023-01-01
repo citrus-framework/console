@@ -11,6 +11,8 @@ declare(strict_types=1);
 namespace Test\Console;
 
 use Citrus\Console\Decorate;
+use Citrus\Console\Decorate\ColorType;
+use Citrus\Console\Decorate\StyleType;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -30,12 +32,12 @@ class DecorateTest extends TestCase
         $decorate = new Decorate();
 
         // 文字色(赤)
-        $decorate->onTextColor(Decorate::RED);
+        $decorate->onTextColor(ColorType::RED);
         $output = $decorate->format($message);
         $this->debugOutput($output);
 
         // 背景色(シアン)
-        $decorate->onBackColor(Decorate::CYAN);
+        $decorate->onBackColor(ColorType::CYAN);
         $output = $decorate->format($message);
         $this->debugOutput($output);
 
@@ -50,17 +52,15 @@ class DecorateTest extends TestCase
         $this->debugOutput($output);
 
         // 点滅
-        $decorate->addStack(Decorate::BLINK);
+        $decorate->addStack(StyleType::BLINK->value);
         $output = $decorate->format($message);
         $this->debugOutput($output);
 
         // 反転
-        $decorate->addStack(Decorate::REVERSE);
+        $decorate->addStack(StyleType::REVERSE->value);
         $output = $decorate->format($message);
         $this->debugOutput($output);
     }
-
-
 
     /**
      * 目視用のデバッグプリント

@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace Citrus\Console;
 
+use Citrus\Console\Decorate\ColorType;
+
 /**
  * コンソール出力系処理
  */
@@ -84,7 +86,7 @@ trait ConsoleOutput
         $this->writeln(
             // 装飾してフォーマット
             Decorate::getInstance()
-                ->onTextLightColor(Decorate::GREEN)
+                ->onTextLightColor(ColorType::GREEN)
                 ->onBold()
                 ->format($message)
         );
@@ -104,8 +106,8 @@ trait ConsoleOutput
         $this->writeln(
             // 装飾してフォーマット
             Decorate::getInstance()
-                ->onTextLightColor(Decorate::WHITE)
-                ->onBackColor(Decorate::RED)
+                ->onTextLightColor(ColorType::WHITE)
+                ->onBackColor(ColorType::RED)
                 ->onBold()
                 ->format($message)
         );
