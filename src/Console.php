@@ -21,7 +21,7 @@ class Console
     /** @var array configure */
     protected array $configures = [];
 
-    /** @var array command options */
+    /** @var string[] command options */
     protected array $options = [];
 
     /** @var array command parameters */
@@ -31,8 +31,6 @@ class Console
 
     /**
      * コマンドライン引数のパース処理
-     *
-     * @return void
      */
     public function options(): void
     {
@@ -45,40 +43,26 @@ class Console
         $this->parameters = getopt('', $this->options);
     }
 
-
-
     /**
      * コマンド実行処理
-     *
-     * @return void
      */
     public function execute(): void
     {
     }
 
-
-
     /**
      * コマンド実行前処理
-     *
-     * @return void
      */
     public function before(): void
     {
     }
 
-
-
     /**
      * コマンド実行後処理
-     *
-     * @return void
      */
     public function after(): void
     {
     }
-
-
 
     /**
      * コマンドラインオプションパラメータ取得
@@ -92,13 +76,10 @@ class Console
         return ($this->parameters[$key] ?? $default);
     }
 
-
-
     /**
      * コマンドランナー
      *
      * @param array $configures 設定情報
-     * @return void
      */
     public static function runner(array $configures): void
     {
