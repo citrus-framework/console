@@ -96,13 +96,28 @@ class Console
 
     /**
      * コマンドラインオプションパラメータ取得
+     * 値を取らない引数と、値を省いた引数(`level::` を値なしで付けたとき)は値が無いので、`$default` を返す。
+     * 付いているかどうかは `hasParameter` で確かめる
      * @param string      $key     パラメータキー
      * @param string|null $default デフォルト値
-     * @return string|null パラメータ値
+     * @return string|null パラメータ値(値が文字列のときだけその値、それ以外は `$default`)
      */
     public function parameter(string $key, ?string $default = null): ?string
     {
-        return ($this->parameters[$key] ?? $default);
+        $value = ($this->parameters[$key] ?? $default);
+
+        return (is_string($value) === true ? $value : $default);
+    }
+
+    /**
+     * コマンドラインオプションパラメータが付いているかどうか
+     * 値を取らない引数(`dry-run`)と、値を省いた引数(`level::` を値なしで付けたとき)は、値が無くても付いていれば true を返す
+     * @param string $key パラメータキー
+     * @return bool 付いていれば true
+     */
+    public function hasParameter(string $key): bool
+    {
+        return array_key_exists($key, $this->parameters);
     }
 
     /**

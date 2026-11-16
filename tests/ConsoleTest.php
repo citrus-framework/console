@@ -135,6 +135,77 @@ class ConsoleTest extends TestCase
 
         $this->assertSame(['account' => OptionKind::REQUIRED, 'verbose' => OptionKind::FLAG], $command->optionKinds());
     }
+
+    #[Test]
+    public function 値なしで付いた引数は付いていると判定される()
+    {
+        $command = new TestParameterConsole(['dry-run' => false]);
+
+        $this->assertTrue($command->hasParameter('dry-run'));
+    }
+
+    #[Test]
+    public function 文字列の値が付いた引数は付いていると判定される()
+    {
+        $command = new TestParameterConsole(['account' => 'a']);
+
+        $this->assertTrue($command->hasParameter('account'));
+    }
+
+    #[Test]
+    public function 無い名前の引数は付いていないと判定される()
+    {
+        $command = new TestParameterConsole(['account' => 'a']);
+
+        $this->assertFalse($command->hasParameter('none'));
+    }
+
+    #[Test]
+    public function 文字列の値はそのまま取れる()
+    {
+        $command = new TestParameterConsole(['account' => 'a']);
+
+        $this->assertSame('a', $command->parameter('account', 'x'));
+    }
+
+    #[Test]
+    public function 値なしで付いた引数はデフォルト値のnullが取れる()
+    {
+        $command = new TestParameterConsole(['dry-run' => false]);
+
+        $this->assertNull($command->parameter('dry-run'));
+    }
+
+    #[Test]
+    public function 値なしで付いた引数は指定したデフォルト値が取れる()
+    {
+        $command = new TestParameterConsole(['level' => false]);
+
+        $this->assertSame('x', $command->parameter('level', 'x'));
+    }
+
+    #[Test]
+    public function 無い名前の引数はデフォルト値が取れる()
+    {
+        $command = new TestParameterConsole([]);
+
+        $this->assertNull($command->parameter('none'));
+        $this->assertSame('x', $command->parameter('none', 'x'));
+    }
+
+    #[Test]
+    public function 本物のgetoptで読んだ引数が取れる()
+    {
+        $script = __DIR__ . '/Fixture/read_parameters.php';
+        $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg($script) . ' --dry-run --level --account=a 2>&1';
+        exec($command, $lines, $code);
+
+        $this->assertSame(0, $code);
+        $this->assertSame([
+            'has' => ['dry-run' => true, 'level' => true, 'account' => true, 'none' => false],
+            'value' => ['dry-run' => null, 'level' => 'x', 'account' => 'a', 'none' => 'y'],
+        ], json_decode(implode('', $lines), true));
+    }
 }
 
 /**
@@ -144,6 +215,20 @@ class TestDefaultOptionConsole extends Console
 {
     /** @var string[] command options */
     protected array $options = ['account:', 'verbose'];
+}
+
+/**
+ * 引数の値(getopt の結果)を指定するためのテストコマンド
+ */
+class TestParameterConsole extends Console
+{
+    /**
+     * @param array $parameters getopt の結果
+     */
+    public function __construct(array $parameters)
+    {
+        $this->parameters = $parameters;
+    }
 }
 
 /**
