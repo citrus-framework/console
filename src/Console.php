@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace Citrus;
 
+use Citrus\Console\OptionKind;
+
 /**
  * コンソールコマンド処理
  */
@@ -48,6 +50,27 @@ class Console
     public function optionNames(): array
     {
         return array_values(array_map(fn (string $option): string => rtrim($option, ':'), $this->options));
+    }
+
+    /**
+     * コマンドが受け取る引数ごとの受け取り方取得(`$options` のコロンの数で決まる)
+     * @return array<string, OptionKind> 引数の名前をキーにした受け取り方
+     */
+    public function optionKinds(): array
+    {
+        $kinds = [];
+        foreach ($this->options as $option)
+        {
+            $name = rtrim($option, ':');
+            $kinds[$name] = match (strlen($option) - strlen($name))
+            {
+                0 => OptionKind::FLAG,
+                1 => OptionKind::REQUIRED,
+                default => OptionKind::OPTIONAL,
+            };
+        }
+
+        return $kinds;
     }
 
     /**
