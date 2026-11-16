@@ -34,13 +34,14 @@ class Decorate
      */
     public function addStack(array|int $decorates): void
     {
-        // 配列の場合は再起
+        // 配列の場合は再帰
         if (is_array($decorates) === true)
         {
             foreach ($decorates as $decorate)
             {
                 $this->addStack($decorate);
             }
+            return;
         }
 
         $this->stacks[] = $decorates;

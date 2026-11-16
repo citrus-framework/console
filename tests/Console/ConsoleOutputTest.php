@@ -30,6 +30,18 @@ class ConsoleOutputTest extends TestCase
         $command->success('TEST');
         $command->failure('TEST');
     }
+
+    #[Test]
+    public function 配列を渡すと要素だけが出力される()
+    {
+        // テストでは UNIT_TEST が定義されていて write が出力しないので、定義しない別の PHP で実行する
+        $script = __DIR__ . '/../Fixture/write_array.php';
+        $command = escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg($script) . ' 2>&1';
+        exec($command, $lines, $code);
+
+        $this->assertSame(0, $code);
+        $this->assertSame(['A', 'B', 'CD'], $lines);
+    }
 }
 
 /**
