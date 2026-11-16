@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Test;
 
 use Citrus\Console;
+use Citrus\Console\OptionKind;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -73,6 +74,66 @@ class ConsoleTest extends TestCase
         $command = new TestOptionConsole([2 => 'account:', 'key' => 'verbose']);
 
         $this->assertSame(['account', 'verbose'], $command->optionNames());
+    }
+
+    #[Test]
+    public function 引数の受け取り方がコロン無しのみ()
+    {
+        $command = new TestOptionConsole(['verbose', 'dry-run']);
+
+        $this->assertSame(['verbose' => OptionKind::FLAG, 'dry-run' => OptionKind::FLAG], $command->optionKinds());
+    }
+
+    #[Test]
+    public function 引数の受け取り方がコロン1つのみ()
+    {
+        $command = new TestOptionConsole(['account:']);
+
+        $this->assertSame(['account' => OptionKind::REQUIRED], $command->optionKinds());
+    }
+
+    #[Test]
+    public function 引数の受け取り方がコロン2つのみ()
+    {
+        $command = new TestOptionConsole(['level::']);
+
+        $this->assertSame(['level' => OptionKind::OPTIONAL], $command->optionKinds());
+    }
+
+    #[Test]
+    public function 引数の受け取り方が混ざっていても名前ごとに取れる()
+    {
+        $command = new TestOptionConsole(['account:', 'dry-run', 'level::']);
+
+        $this->assertSame([
+            'account' => OptionKind::REQUIRED,
+            'dry-run' => OptionKind::FLAG,
+            'level' => OptionKind::OPTIONAL,
+        ], $command->optionKinds());
+    }
+
+    #[Test]
+    public function 引数が空なら受け取り方も空()
+    {
+        $command = new TestOptionConsole([]);
+
+        $this->assertSame([], $command->optionKinds());
+    }
+
+    #[Test]
+    public function 引数の添字が連番でなくても受け取り方は名前がキー()
+    {
+        $command = new TestOptionConsole([2 => 'account:', 'key' => 'verbose']);
+
+        $this->assertSame(['account' => OptionKind::REQUIRED, 'verbose' => OptionKind::FLAG], $command->optionKinds());
+    }
+
+    #[Test]
+    public function プロパティの初期値で書いた引数の受け取り方が取れる()
+    {
+        $command = new TestDefaultOptionConsole();
+
+        $this->assertSame(['account' => OptionKind::REQUIRED, 'verbose' => OptionKind::FLAG], $command->optionKinds());
     }
 }
 
