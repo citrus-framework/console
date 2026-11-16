@@ -28,17 +28,14 @@ class Decorate
     /** @var int[] 装飾のスタック */
     protected array $stacks = [];
 
-
-
     /**
      * 装飾を積む
-     *
      * @param int|int[] $decorates
      */
     public function addStack(array|int $decorates): void
     {
         // 配列の場合は再起
-        if (true === is_array($decorates))
+        if (is_array($decorates) === true)
         {
             foreach ($decorates as $decorate)
             {
@@ -51,7 +48,6 @@ class Decorate
 
     /**
      * 装飾済み文字列の返却
-     *
      * @param string $message
      * @return string
      */
@@ -69,7 +65,6 @@ class Decorate
 
     /**
      * 太字にする
-     *
      * @return static
      */
     public function onBold(): self
@@ -80,7 +75,6 @@ class Decorate
 
     /**
      * 下線をつける
-     *
      * @return static
      */
     public function onUnderline(): self
@@ -91,7 +85,6 @@ class Decorate
 
     /**
      * 文字色をつける
-     *
      * @param ColorType $colorType 色
      * @return static
      */
@@ -103,7 +96,6 @@ class Decorate
 
     /**
      * 文字色をつける(淡)
-     *
      * @param ColorType $colorType 色
      * @return static
      */
@@ -115,7 +107,6 @@ class Decorate
 
     /**
      * 背景色をつける
-     *
      * @param ColorType $colorType 色
      * @return static
      */
@@ -127,7 +118,6 @@ class Decorate
 
     /**
      * 背景色をつける(淡)
-     *
      * @param ColorType $colorType 色
      * @return static
      */

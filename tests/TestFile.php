@@ -17,19 +17,18 @@ trait TestFile
 {
     /**
      * 指定のパス配下を全て(パスも含め)削除
-     *
      * @param string $path
      */
     public function forceRemove(string $path): void
     {
         // ファイル、もしくはディレクトリとして認識されない
-        if (false === file_exists($path))
+        if (file_exists($path) === false)
         {
             return;
         }
 
         // ファイルなら削除
-        if (true === is_file($path))
+        if (is_file($path) === true)
         {
             unlink($path);
             return;
@@ -41,7 +40,7 @@ trait TestFile
         foreach ($children as $child)
         {
             // ノイズになるカレントはスルー
-            if (true === in_array($child, ['.', '..'], true))
+            if (in_array($child, ['.', '..'], true) === true)
             {
                 continue;
             }

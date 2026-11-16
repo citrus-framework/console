@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Test\Console;
 
 use Citrus\Console\ConsoleOutput;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,9 +19,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ConsoleOutputTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function 文字出力で例外が発生しない()
     {
         $command = new TestConsole();

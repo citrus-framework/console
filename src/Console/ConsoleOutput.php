@@ -19,14 +19,13 @@ trait ConsoleOutput
 {
     /**
      * メッセージ出力
-     *
      * @param string|string[] $messages 出力メッセージ
      * @param bool            $newline  改行
      */
     public function write(array|string $messages, bool $newline): void
     {
         // 配列なら再起
-        if (true === is_array($messages))
+        if (is_array($messages) === true)
         {
             foreach ($messages as $message)
             {
@@ -35,18 +34,17 @@ trait ConsoleOutput
         }
 
         // テスト時は出力をせずにreturn
-        if (true === defined('UNIT_TEST') && true === UNIT_TEST)
+        if (defined('UNIT_TEST') === true && UNIT_TEST === true)
         {
             return;
         }
 
         // 出力
-        echo $messages . (true === $newline ? PHP_EOL : '');
+        echo $messages . ($newline === true ? PHP_EOL : '');
     }
 
     /**
      * メッセージ出力(改行)
-     *
      * @param string|string[] $messages メッセージ
      */
     public function writeln(array|string $messages): void
@@ -56,7 +54,6 @@ trait ConsoleOutput
 
     /**
      * メッセージフォーマット(改行)
-     *
      * @param string                $format フォーマット文字列
      * @param string|int|float|bool $args   可変引数
      */
@@ -67,7 +64,6 @@ trait ConsoleOutput
 
     /**
      * 成功時出力
-     *
      * @param string $message メッセージ
      */
     public function success(string $message): void
@@ -84,7 +80,6 @@ trait ConsoleOutput
 
     /**
      * 失敗時出力
-     *
      * @param string $message メッセージ
      */
     public function failure(string $message): void

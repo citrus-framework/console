@@ -13,6 +13,7 @@ namespace Test\Console;
 use Citrus\Console\Decorate;
 use Citrus\Console\Decorate\ColorType;
 use Citrus\Console\Decorate\StyleType;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,9 +21,7 @@ use PHPUnit\Framework\TestCase;
  */
 class DecorateTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function 文字に色をつけて出力()
     {
         // メッセージ
@@ -64,7 +63,6 @@ class DecorateTest extends TestCase
 
     /**
      * 目視用のデバッグプリント
-     *
      * @param string $message
      * @return void
      */

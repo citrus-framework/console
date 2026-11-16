@@ -27,20 +27,27 @@ class Console
     /** @var array command parameters */
     protected array $parameters = [];
 
-
-
     /**
      * コマンドライン引数のパース処理
      */
     public function options(): void
     {
         // コマンドライン引数がなければ処理スキップ
-        if (0 === count($this->options))
+        if (count($this->options) === 0)
         {
             return;
         }
 
         $this->parameters = getopt('', $this->options);
+    }
+
+    /**
+     * コマンドが受け取る引数の名前一覧取得(`$options` からコロンを外した名前)
+     * @return string[] 引数の名前一覧
+     */
+    public function optionNames(): array
+    {
+        return array_values(array_map(fn (string $option): string => rtrim($option, ':'), $this->options));
     }
 
     /**
@@ -66,7 +73,6 @@ class Console
 
     /**
      * コマンドラインオプションパラメータ取得
-     *
      * @param string      $key     パラメータキー
      * @param string|null $default デフォルト値
      * @return string|null パラメータ値
@@ -78,7 +84,6 @@ class Console
 
     /**
      * コマンドランナー
-     *
      * @param array $configures 設定情報
      */
     public static function runner(array $configures): void
