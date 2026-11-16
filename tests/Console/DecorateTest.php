@@ -61,6 +61,27 @@ class DecorateTest extends TestCase
         $this->debugOutput($output);
     }
 
+    #[Test]
+    public function 配列で積んだ装飾は要素だけが積まれる()
+    {
+        $decorate = new Decorate();
+        $decorate->addStack([StyleType::BOLD->value, StyleType::UNDERLINE->value]);
+
+        $this->assertSame(
+            sprintf("\033[%d;%dm TEST %s", StyleType::BOLD->value, StyleType::UNDERLINE->value, Decorate::RESET),
+            $decorate->format(' TEST '),
+        );
+    }
+
+    #[Test]
+    public function 空の配列では装飾が積まれない()
+    {
+        $decorate = new Decorate();
+        $decorate->addStack([]);
+
+        $this->assertSame(sprintf("\033[m TEST %s", Decorate::RESET), $decorate->format(' TEST '));
+    }
+
     /**
      * 目視用のデバッグプリント
      * @param string $message

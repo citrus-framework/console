@@ -24,13 +24,14 @@ trait ConsoleOutput
      */
     public function write(array|string $messages, bool $newline): void
     {
-        // 配列なら再起
+        // 配列なら再帰
         if (is_array($messages) === true)
         {
             foreach ($messages as $message)
             {
                 $this->write($message, $newline);
             }
+            return;
         }
 
         // テスト時は出力をせずにreturn
